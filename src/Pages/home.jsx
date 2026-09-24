@@ -3,42 +3,37 @@ import { useEffect, useState } from 'react'
 import Cards from '../components/cards'
 
 const Home = () => {
-	const [product, setproduct] = useState(null)
-	const [loading, setloading] = useState(true)
-	// eslint-disable-next-line no-unused-vars
-	const [error, seterror] = useState(null)
+	const [product, setproduct] = useState([])
+
+	const [value, Setvalue] = useState('')
 	useEffect(() => {
 		const getProducts = async () => {
-			try {
+		
 				const res = await axios.get('https://dummyjson.com/products')
 				setproduct(res.data.products)
-			} catch (error) {
-				console.log(error)
-			} finally {
-				setloading(false)
+				
 			}
-		}
-		getProducts()
-	}, [])
+			getProducts()
+		}, [])
+		
+		const filteredProducts = product.filter((elem) =>  elem.title.toLowerCase().includes(value.toLowerCase()))
 
-	if (loading) return <h1 className='text-center mt-[50vh] text-2xl'>Yuklanmoqda</h1>
-	if (error) return <p>Xatolik: {error}</p>
+
+
 	console.log(product);
 	
 	return (
-		<>
-			{loading ? (
-				<p>Yuklanvoti..Beeep...Beep.</p>
-			) : (
+		<div>
+					<input  onChange={(e) => Setvalue(e.target.value) } value={value}  className='input input-ghost my-20 mx-[730px]' placeholder='Search' type="text" />
 				<div className='flex flex-wrap gap-20 '>
 					{
-						product.map((e) => (
+						filteredProducts && filteredProducts.map((e) => (
 							<Cards thumbnail={e.thumbnail} title={e.title} description={e.description}  id={e.id} />
 						))
 					}
 				</div>
-			)}
-		</>
+			
+		</div>
 	)
 }
 

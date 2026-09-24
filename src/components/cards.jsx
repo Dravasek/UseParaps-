@@ -17,7 +17,7 @@ const Cards = Props => {
 					<p>{Props.dis}
 					</p>
 					<div className='card-actions justify-end'>
-						<Link to={`/product/datail/${Props.id}`}><button className='btn btn-primary'>Show more</button></Link>
+						<Link to={`/product/aboute/${Props.id}`}><button className='btn btn-primary'>Show more</button></Link>
 					</div>
 				</div>
 			</div>
